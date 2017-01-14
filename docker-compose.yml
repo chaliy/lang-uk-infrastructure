@@ -1,26 +1,39 @@
 version: '2'
-services:
-  kong-db:
-    image: postgres:9.4
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=kong
-      - POSTGRES_DB=kong
-    
 
-  kong:
-    image: kong
+services:
+  root:
+    build: ./nginx
     restart: always
     ports:
-      - 8000:8000
-      - 8443:8443
-      - 8001:8001
-    expose:
-      - 7946
-      - 7946/udp
-    environment:
-      - KONG_DATABASE=postgres
-      - KONG_PG_HOST=langukinfrastructure_kong-db_1.langukinfrastructure_default
-    depends_on:
-      - kong-db
+      - 80:80
+    links:
+    - ner-ms-uk
+    - ner-ms-en
+    - ner-ms-ru
+    - wiki-lang-detect
+    - api_nlp_uk
+  ner-ms-uk:
+    image: chaliy/ner-ms:uk
+    restart: always
+    ports:
+      - '8080'
+  ner-ms-en:
+    image: chaliy/ner-ms:en
+    restart: always
+    ports:
+      - '8080'
+  ner-ms-ru:
+    image: chaliy/ner-ms:ru
+    restart: always
+    ports:
+      - '8080'
+  wiki-lang-detect:
+    image: chaliy/wiki-lang-detect
+    restart: always
+    ports:
+      - '5000'
+  api_nlp_uk:
+    image: chaliy/api_nlp_uk
+    restart: always
+    ports:
+      - '8080'

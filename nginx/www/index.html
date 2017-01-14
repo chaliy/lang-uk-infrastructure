@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lang UK APIs</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism.min.css" >
+  
+  <style>
+  pre[class*=language-] {
+      white-space: pre-line !important;
+  }
+  </style>
+</head>
+<body>
+
+    <div class="container">
+        <p>
+            <br />
+            <em>Lang UK APIs</em>
+        </p>
+    </div>
+
+
+    <div class="container">
+    
+    <h3>NER UK</h3>
+
+    <pre><code class="language-bash">curl -X POST -H "Content-Type: application/json; charset=UTF-8" -d '{ "tokens": ["Несе","Галя","воду",",","Коромисло","гнеться" ]}' http://localhost:8080/ner/mitie/uk/</code></pre>
+
+    <h3>NER EN</h3>
+
+    <pre><code class="language-bash">curl -X POST -H "Content-Type: application/json; charset=UTF-8" -d '{ "tokens": ["Bill","brigngs","water",",","Jobs","cry" ]}' http://localhost:8080/ner/mitie/en/</code></pre>
+
+    <h3>NER RU</h3>
+
+    <pre><code class="language-bash">curl -X POST -H "Content-Type: application/json; charset=UTF-8" -d '{ "tokens": ["Путин","бежал","в","Зимбабве" ]}' http://localhost:8080/ner/mitie/ru/</code></pre>
+
+    <h3>NLP UK Lematize</h3>
+
+    <pre><code class="language-bash">curl -X POST -H "Content-Type: application/json" -d "{'text': 'Сьогодні у продажі. 12-те зібрання творів 1969 р. І. П. Котляревського.'}" http://localhost:8080/nlp/uk/lemmatize/</code></pre>
+
+    <h3>Lang Detect</h3>
+
+    <pre><code class="language-bash">curl -X POST -H "Content-Type: application/json" -d "{'text': 'Несе Галя'}"  http://localhost:8080/lang-detect/wiki/detect | jq .</code></pre>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js"></script>
+  
+</body>
+</html>

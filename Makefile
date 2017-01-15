@@ -17,3 +17,9 @@ up:
 
 build:
 	docker-compose build
+
+kill:
+	docker-compose kill
+
+rm: kill
+	docker-compose rm

@@ -13,7 +13,7 @@ push:
 	scp host.Makefile $(LANGUKADMIN)@$(LANGUKIP):/uk/Makefile
 
 up:
-	docker-compose up
+	docker-compose up -d
 
 build:
 	docker-compose build

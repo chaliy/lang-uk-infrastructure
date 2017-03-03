@@ -1,0 +1,12 @@
+logLevel = "DEBUG"
+
+[web]
+address = ":8080"
+ReadOnly = true
+
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+
+# domain = "traefik.domain.tld"
+watch = true

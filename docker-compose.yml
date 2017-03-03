@@ -1,13 +1,23 @@
 version: '2'
 
 services:
-  root:
-    build: ./nginx
-    restart: always
+  proxy:
+    build: traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 8080:80
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
     networks:
       - services
+  # root:
+  #   build: ./nginx
+  #   restart: always
+  #   ports:
+  #     - 8080:80
+  #   networks:
+  #     - services
   ner-ms-uk:
     image: chaliy/ner-ms:uk
     restart: always
@@ -15,34 +25,38 @@ services:
       - '8080'
     networks:
       - services
-  ner-ms-en:
-    image: chaliy/ner-ms:en
-    restart: always
-    ports:
-      - '8080'
-    networks:
-      - services
-  ner-ms-ru:
-    image: chaliy/ner-ms:ru
-    restart: always
-    ports:
-      - '8080'
-    networks:
-      - services
-  wiki-lang-detect:
-    image: chaliy/wiki-lang-detect
-    restart: always
-    ports:
-      - '5000'
-    networks:
-      - services
-  api_nlp_uk:
-    image: chaliy/api_nlp_uk
-    restart: always
-    ports:
-      - '8080'
-    networks:
-      - services
+    labels:
+      - traefik.port=8080
+      - traefik.backend=ner-ms-uk
+      - traefik.frontend.rule=PathStrip:/ner/mitie/uk
+  # ner-ms-en:
+  #   image: chaliy/ner-ms:en
+  #   restart: always
+  #   ports:
+  #     - '8080'
+  #   networks:
+  #     - services
+  # ner-ms-ru:
+  #   image: chaliy/ner-ms:ru
+  #   restart: always
+  #   ports:
+  #     - '8080'
+  #   networks:
+  #     - services
+  # wiki-lang-detect:
+  #   image: chaliy/wiki-lang-detect
+  #   restart: always
+  #   ports:
+  #     - '5000'
+  #   networks:
+  #     - services
+  # api_nlp_uk:
+  #   image: chaliy/api_nlp_uk
+  #   restart: always
+  #   ports:
+  #     - '8080'
+  #   networks:
+  #     - services
 
 networks:
   services:
